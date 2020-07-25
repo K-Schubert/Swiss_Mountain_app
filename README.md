@@ -19,9 +19,9 @@ Development of an app for the identification of swiss mountains. Wondering what 
 
 - [ ] Download ResNet34/ResNet50 pretrained ImageNet model.
 - [ ] Train head for *x* epochs.
-- [ ] Train all layers for *y* epochs.
-- [ ] Re-train with dynamic image re-sizing.
+- [ ] Train all layers for *y* epochs.
+- [ ] Re-train with dynamic image re-sizing.
 
 ### Deployment
 
-- [ ] Use Starlette to deploy model.
+- [ ] Use Starlette to deploy model.
