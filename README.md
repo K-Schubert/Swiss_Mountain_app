@@ -5,7 +5,7 @@ Development of an app for the identification of swiss mountains. Wondering what 
 
 - [x] Collect image URLs with javascript.
 - [x] Automatically download into folders.
-- [x] Scrap Wikipedia table of mountains in CH with bs4.
+- [x] Scrap Wikipedia table of swiss mountains with bs4.
 - [x] Create script to automate above steps with Selenium.
 - [x] Expand number of available mountains.
 
