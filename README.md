@@ -4,10 +4,10 @@ Development of an app for the identification of swiss mountains. Wondering what 
 ### Data Collection
 
 - [x] Collect image URLs with javascript.
-- [x] Automatically download into folders with fastai.
+- [x] Automatically download into folders.
 - [x] Scrap Wikipedia table of mountains in CH with bs4.
-- [x] Create script to automate above steps.
-- [ ] Expand number of available mountains.
+- [x] Create script to automate above steps with Selenium.
+- [x] Expand number of available mountains.
 
 ### Data Cleaning and Augmentation
 
@@ -17,10 +17,7 @@ Development of an app for the identification of swiss mountains. Wondering what 
 
 ### Model/Training
 
-- [ ] Download ResNet34/ResNet50 pretrained ImageNet model.
-- [ ] Train head for *x* epochs.
-- [ ] Train all layers for *y* epochs.
-- [ ] Re-train with dynamic image re-sizing.
+- [ ] Download pretrained ResNet model, re-train to new data, re-train with dynamic image re-sizing.
 
 ### Deployment
 
