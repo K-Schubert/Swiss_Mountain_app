@@ -1,5 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import ElementNotInteractableException
 
 import time
@@ -19,12 +22,9 @@ def execute_js(url, mtn):
 		driver.execute_script("window.scrollTo(0, 40000);")
 		time.sleep(1.5)
 
-	time.sleep(3)
-
 	while True:
 		try:
-			driver.find_element_by_xpath("//div[@class='YstHxe']//input[@type='button']").click()
-			time.sleep(1.5)
+			WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, "//div[@class='YstHxe']//input[@type='button']"))).click()
 			for i in range(5):
 				driver.execute_script("window.scrollTo(0, 80000);")
 				time.sleep(1.5)
