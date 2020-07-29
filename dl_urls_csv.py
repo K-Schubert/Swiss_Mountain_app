@@ -1,11 +1,12 @@
-
 from execute_js import execute_js
 from scraping import scrap_mountains
 from selenium import webdriver
+import os
+from paths import path
 
 url = "http://www.images.google.com"
 
-n_mtns = 1
+n_mtns = 5
 mtns = scrap_mountains(n_mtns)
 
 driver = webdriver.Chrome()
@@ -14,29 +15,23 @@ driver = webdriver.Chrome()
 
 driver.quit()
 
-import os
-import shutil
-'''
-os.rename("path/to/current/file.foo", "path/to/new/destination/for/file.foo")
-shutil.move("path/to/current/file.foo", "path/to/new/destination/for/file.foo")
-os.replace("path/to/current/file.foo", "path/to/new/destination/for/file.foo")
-'''
-from paths import path
+mtns = [w.replace(' ', '_') for w in mtns]
 
 folder = mtns[0]
 file = "urls_" + folder + ".csv"
-path_to = "data/mountains/" + folder + file
+path_to = "data/mountains/" + folder + "/"
 
-os.rename(path + ".csv", path_to)
-shutil.move(path + ".csv", path_to)
-os.replace(path + ".csv", path_to)
+if os.path.isdir(path_to):
+	print("dir_exists")
 
-n_mtns = 1
+os.mkdir(path_to)
+os.rename(path["current"] + ".csv", path_to + file)
+
 for i in range(1, n_mtns):
-	path = path + " ({})".format(i) + ".csv"
+	path = path["current"] + " ({})".format(int(i)) + ".csv"
 	folder = mtns[i]
 	file = "urls_" + folder + ".csv"
-	path_to = "data/mountains/" + folder + file
-	os.rename(path, path_to)
-	shutil.move(path, path_to)
-	os.replace(path, path_to)
+	path_to = "data/mountains/" + folder + "/"
+
+	os.mkdir(path_to)
+	os.rename(path, path_to + file)
