@@ -22,3 +22,6 @@ Development of an app for the identification of swiss mountains. Wondering what 
 ### Deployment
 
 - [ ] Use Starlette to deploy model.
+
+# The Bot
+The bot was created using Selenium to crawl google images for a given search. It is programmed to scroll down to the end of the current page to display the maximum amount of images. Then the javascript code fetches the image urls.
