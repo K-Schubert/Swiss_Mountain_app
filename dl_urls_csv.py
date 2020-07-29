@@ -28,10 +28,9 @@ os.mkdir(path_to)
 os.rename(path["current"] + ".csv", path_to + file)
 
 for i in range(1, n_mtns):
-	path = path["current"] + " ({})".format(int(i)) + ".csv"
 	folder = mtns[i]
 	file = "urls_" + folder + ".csv"
 	path_to = "data/mountains/" + folder + "/"
 
 	os.mkdir(path_to)
-	os.rename(path, path_to + file)
+	os.rename(path["current"] + " ({})".format(i) + ".csv", path_to + file)
