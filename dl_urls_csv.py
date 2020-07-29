@@ -4,33 +4,40 @@ from selenium import webdriver
 import os
 from paths import path
 
-url = "http://www.images.google.com"
+def dl_urls_csv(n_mtns):
 
-n_mtns = 5
-mtns = scrap_mountains(n_mtns)
+	url = "http://www.images.google.com"
 
-driver = webdriver.Chrome()
+	# Get mountain names from Wikipedia
+	mtns = scrap_mountains(n_mtns)
 
-[execute_js(driver, url, mtn) for mtn in mtns]
+	driver = webdriver.Chrome()
 
-driver.quit()
+	# Download photo urls for each mountain
+	for mtn in mtns:
+		execute_js(driver, url, mtn)
 
-mtns = [w.replace(' ', '_') for w in mtns]
+	driver.quit()
 
-folder = mtns[0]
-file = "urls_" + folder + ".csv"
-path_to = "data/mountains/" + folder + "/"
+	mtns = [w.replace(' ', '_') for w in mtns]
 
-if os.path.isdir(path_to):
-	print("dir_exists")
-
-os.mkdir(path_to)
-os.rename(path["current"] + ".csv", path_to + file)
-
-for i in range(1, n_mtns):
-	folder = mtns[i]
+	folder = mtns[0]
 	file = "urls_" + folder + ".csv"
 	path_to = "data/mountains/" + folder + "/"
 
+	'''
+	if os.path.isdir(path_to):
+		print("dir_exists")
+	'''
+
+	# Create data folders and move urls
 	os.mkdir(path_to)
-	os.rename(path["current"] + " ({})".format(i) + ".csv", path_to + file)
+	os.rename(path["current"] + ".csv", path_to + file)
+
+	for i in range(1, n_mtns):
+		folder = mtns[i]
+		file = "urls_" + folder + ".csv"
+		path_to = "data/mountains/" + folder + "/"
+
+		os.mkdir(path_to)
+		os.rename(path["current"] + " ({})".format(i) + ".csv", path_to + file)

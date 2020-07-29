@@ -16,8 +16,6 @@ def scrap_mountains(n_mtns):
 	data_frame = pd.read_html(str(table[2]))[0]
 	list_of_mountains = data_frame['Mountain'].to_list()
 
-	#list_of_mountains = [w.replace(' ', '_') for w in list_of_mountains]
-
 	if n_mtns > len(list_of_mountains):
 		n_mtns = len(list_of_mountains)
 
