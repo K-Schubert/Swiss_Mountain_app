@@ -1,49 +1,46 @@
 from fastai.vision import download_images
 import os
 import csv
-#from dl_urls_csv import dl_urls_csv
+from dl_urls_csv import dl_urls_csv
 
-#dl_urls_csv(n_mtns)
+# Download urls for a given nb of mountains
+#dl_urls_csv(n_mtns=15)
 
-path = 'data/mountains/'
-folders = os.listdir(path)[1:]
+def dl_images_from_urls():
 
-for mtn in folders:
-    
-    folder = mtn + "/"
-    print(folder)
-    file = os.listdir(path + folder)
-    print(file)
+    path = 'data/mountains/'
+    folders = os.listdir(path)[1:]
 
-    if len(file) > 1:
-        file = file[1]
-    else:
-        file = file[0]
+    for mtn in folders:
+        
+        folder = mtn + "/"
+        file = os.listdir(path + folder)
 
-    print(file)
+        # Check for hidden .DS_Store file
+        if len(file) > 1:
+            file = file[1]
+        else:
+            file = file[0]
 
-    temp_csv_file = file[:-4] + '_tmp' + file[-4:]
-    print(temp_csv_file)
+        temp_csv_file = file[:-4] + '_tmp' + file[-4:]
 
-    with open(path+folder+file, 'r') as inp, open(path+folder+temp_csv_file, 'w') as out:
-        writer = csv.writer(out)
-        for row in csv.reader(inp):
-            if row:
-                writer.writerow(row)
+        with open(path+folder+file, 'r') as inp, open(path+folder+temp_csv_file, 'w') as out:
+            writer = csv.writer(out)
+            for row in csv.reader(inp):
+                if row:
+                    writer.writerow(row)
 
-    os.remove(path+folder+file)
-    os.rename(path+folder+temp_csv_file, path+folder+file)
+        os.remove(path+folder+file)
+        os.rename(path+folder+temp_csv_file, path+folder+file)
 
-    with open(path+folder+file, 'r') as fp:
-        reader = csv.reader(fp)
-        print('nb of urls: ', len(list(reader)))
+        with open(path+folder+file, 'r') as fp:
+            reader = csv.reader(fp)
+            print('nb of urls for {}: '.format(mtn), len(list(reader)))
 
-    download_images(path+folder+file, path+folder, max_pics=1000)
+        download_images(path+folder+file, path+folder, max_pics=30)
 
-    mtn = folder
-
-    print('nb of downloaded images for {}: '.format(mtn), len(os.listdir(path+folder))-1)
-    #idx = len(os.listdir(path/folder))-2
+        print('nb of downloaded images for {}: '.format(mtn), len(os.listdir(path+folder))-1)
+        #idx = len(os.listdir(path/folder))-2
 
 '''
 
