@@ -25,11 +25,6 @@ def dl_urls_csv(n_mtns):
 	file = "urls_" + folder + ".csv"
 	path_to = "data/mountains/" + folder + "/"
 
-	'''
-	if os.path.isdir(path_to):
-		print("dir_exists")
-	'''
-
 	# Create data folders and move urls
 	os.mkdir(path_to)
 	os.rename(path["current"] + ".csv", path_to + file)
