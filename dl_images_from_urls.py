@@ -6,7 +6,7 @@ from dl_urls_csv import dl_urls_csv
 # Download urls for a given nb of mountains
 #dl_urls_csv(n_mtns=15)
 
-def dl_images_from_urls():
+def dl_images_from_urls(n_images=150):
 
     path = 'data/mountains/'
     folders = os.listdir(path)[1:]
@@ -37,6 +37,6 @@ def dl_images_from_urls():
             reader = csv.reader(fp)
             print('nb of urls for {}: '.format(mtn), len(list(reader)))
 
-        download_images(path+folder+file, path+folder, max_pics=300)
+        download_images(path+folder+file, path+folder, max_pics=n_images)
 
         print('nb of downloaded images for {}: '.format(mtn), len(os.listdir(path+folder))-1)
