@@ -48,8 +48,7 @@ The model was trained on a GPU for 40 epochs on the raw dataset. Then it was tra
 
 The heatmap feature implemented in the fastai library (https://openaccess.thecvf.com/content_ICCV_2017/papers/Selvaraju_Grad-CAM_Visual_Explanations_ICCV_2017_paper.pdf) shows that the biggest errors are made when the model focuses on "irrelevant" parts of the images. A segmentation based approach combined with better image cleaning could improve model predictions.  
 
-![Confusion Matrix](https://github.com/K-Schubert/Swiss_Mountain_app/blob/master/confusion_matrix.pdf "Confusion Matrix")
-
+![Confusion Matrix](https://github.com/K-Schubert/Swiss_Mountain_app/blob/master/confusion_matrix.pdf?raw=true)
 
 ### Deployment
 
