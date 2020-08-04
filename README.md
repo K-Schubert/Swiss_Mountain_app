@@ -24,6 +24,12 @@ Development of an app for the identification of swiss mountains. Wondering what 
 
 - [x] Use Starlette to deploy model.
 
+# File explanation
+
+The model is ```export.pkl``` - a 103MB file.  
+The notebook ```Training.ipynb``` contains the training steps of the model.  
+The ```app.py``` file runs the model in your browser (see Deployment section).
+
 # Remarks 
 
 ### Data Collection
@@ -42,9 +48,12 @@ The model was trained on a GPU for 40 epochs on the raw dataset. Then it was tra
 
 The heatmap feature implemented in the fastai library (https://openaccess.thecvf.com/content_ICCV_2017/papers/Selvaraju_Grad-CAM_Visual_Explanations_ICCV_2017_paper.pdf) shows that the biggest errors are made when the model focuses on "irrelevant" parts of the images. A segmentation based approach combined with better image cleaning could improve model predictions.  
 
+![Confusion Matrix](confusion_matrix.pdf "Confusion Matrix")
+
+
 ### Deployment
 
-The model is deployed using Starlette. You can run the app with ```uvicorn app:app```.
+The model is deployed using Starlette. You can run the app with ```uvicorn app:app```. You can then upload a mountain image (usual formats accepted) and the model will give you its prediction.
 
 ### Next Steps
 
