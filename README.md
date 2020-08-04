@@ -34,7 +34,7 @@ The ```app.py``` file runs the model in your browser (see Deployment section).
 
 ### Data Collection
 
-The bot was created using Selenium to crawl google images for a given search. It is programmed to scroll down to the end of the current page to display the maximum amount of images. Then the javascript code fetches the image urls.
+The bot was created using Selenium to crawl google images for a given search. It is programmed to scroll down to the end of the current page to display the maximum amount of images. Then the javascript code fetches the image urls and a function downloads the images.
 
 ### Data Cleaning
 
