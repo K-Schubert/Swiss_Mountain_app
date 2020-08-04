@@ -6,6 +6,7 @@ from fastai.vision import (
     open_image,
     get_transforms,
     models,
+    load_learner
 )
 import torch
 from pathlib import Path
@@ -24,38 +25,16 @@ async def get_bytes(url):
 
 app = Starlette()
 
-mtn_images_path = Path("/tmp")
-mtn_fnames = [
-    "/{}_1.jpg".format(c)
-    for c in [
-        "Aletschhorn",
-        "Alphubel",
-        "Breithorn",
-        "Dent_Blanche",
-        "Dent_d'Hérens",
-        "Dom",
-        "Finsteraarhorn",
-        "Grand_Combin",
-        "Lyskamm",
-        "Matterhorn",
-        "Monte_Rosa_(Dufourspitze)",
-        "Rimpfischhorn",
-        "Strahlhorn",
-        "Weisshorn",
-        "Zinalrothorn"
-    ]
-]
-cat_data = ImageDataBunch.from_name_re(
-    cat_images_path,
-    cat_fnames,
-    r"/([^/]+)_\d+.jpg$",
+mtn_images_path = Path("data/mountains/")
+mtn_data = ImageDataBunch.from_folder(
+    mtn_images_path,
+    train=".", 
+    valid_pct=0.2,
     ds_tfms=get_transforms(),
-    size=224,
+    size=224
 )
-cat_learner = ConvLearner(cat_data, models.resnet34)
-cat_learner.model.load_state_dict(
-    torch.load("usa-inaturalist-cats.pth", map_location="cpu")
-)
+
+mtn_learner = load_learner("data/")
 
 
 @app.route("/upload", methods=["POST"])
@@ -73,10 +52,12 @@ async def classify_url(request):
 
 def predict_image_from_bytes(bytes):
     img = open_image(BytesIO(bytes))
-    losses = img.predict(cat_learner)
+    pred_class, pred_idx, outputs = mtn_learner.predict(img)
+    
     return JSONResponse({
-        "predictions": sorted(
-            zip(cat_learner.data.classes, map(float, losses)),
+        "prediction": pred_class.obj,
+        "probabilities": sorted(
+            zip(mtn_learner.data.classes, map(float, outputs)),
             key=lambda p: p[1],
             reverse=True
         )
@@ -90,14 +71,17 @@ def form(request):
         <form action="/upload" method="post" enctype="multipart/form-data">
             Select image to upload:
             <input type="file" name="file">
-            <input type="submit" value="Upload Image">
+            <input type="submit" value="Upload and analyze Image">
         </form>
+        """)
+'''
         Or submit a URL:
         <form action="/classify-url" method="get">
             <input type="url" name="url">
             <input type="submit" value="Fetch and analyze image">
         </form>
-    """)
+    """
+'''
 
 
 @app.route("/form")
