@@ -22,16 +22,17 @@ Development of an app for the identification of swiss mountains. Wondering what 
 
 ### Deployment
 
-- [ ] Use Starlette to deploy model.
-
-# The Bot
-The bot was created using Selenium to crawl google images for a given search. It is programmed to scroll down to the end of the current page to display the maximum amount of images. Then the javascript code fetches the image urls.
+- [x] Use Starlette to deploy model.
 
 # Remarks 
 
+### Data Collection
+
+The bot was created using Selenium to crawl google images for a given search. It is programmed to scroll down to the end of the current page to display the maximum amount of images. Then the javascript code fetches the image urls.
+
 ### Data Cleaning
 
-A big challenge of this project was the data cleaning (as always...), but using a pretrained ImageNet model allowed to reduce the number of images per class to 150-200 (they could probably have been even less) for model fine-tuning. Scraping the data from Google images was a simple task but ensuring proper labeling was tricky as many mountains look alike and I am by no means a mountain expert. Not all images contained nice angles of mountains, and I had to manually remove selfies, photos with weird angles (from the peak, looking downwards, etc.). I tried to keep photos with good angles and lighting that (taken from the base of the mountain or from a neighbouring peak). Cleaning the data significantly improved model accuracy to 84%, although we are not achieving the 95%+ accuracy for some more famous "toy" datasets. This is certainly due to the fact that classifying mountains is a difficult task as the mountains mostly have the same textures (snow, rock or grass), similar shapes and that some images can contain multiple mountains/labels depending on the angle of the photo.
+A big challenge of this project was the data cleaning (as always...), but using a pretrained ImageNet model allowed to reduce the number of images per class to 150-200 (they could probably have been even less) for model fine-tuning. Scraping the data from Google images was a simple task but ensuring proper labeling was tricky as many mountains look alike and I am by no means a mountain expert. Not all images contained nice angles of mountains, and I had to manually remove selfies, photos with weird angles (from the peak, looking downwards, etc.). I tried to keep photos with good angles and lighting that (taken from the base of the mountain or from a neighbouring peak). Cleaning the data significantly improved model test accuracy to 84%, although we are not achieving the 95%+ accuracy for some more famous "toy" datasets. This is certainly due to the fact that classifying mountains is a difficult task as the mountains mostly have the same textures (snow, rock or grass), similar shapes and that some images can contain multiple mountains/labels depending on the angle of the photo.
 
 ### Model Training
 
@@ -40,6 +41,10 @@ The model was trained on a GPU for 40 epochs on the raw dataset. Then it was tra
 ### Interpretation
 
 The heatmap feature implemented in the fastai library (https://openaccess.thecvf.com/content_ICCV_2017/papers/Selvaraju_Grad-CAM_Visual_Explanations_ICCV_2017_paper.pdf) shows that the biggest errors are made when the model focuses on "irrelevant" parts of the images. A segmentation based approach combined with better image cleaning could improve model predictions.  
+
+### Deployment
+
+The model is deployed using Starlette. You can run the app with ```uvicorn app:app```.
 
 ### Next Steps
 
